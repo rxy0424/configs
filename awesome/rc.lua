@@ -46,12 +46,13 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-
-beautiful.font = "sans 20"
+local theme = beautiful.get()
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
-beautiful.menu_height = dpi(40)
-beautiful.menu_width = dpi(350)
+theme.font = "sans 15"
+theme.menu_height = dpi(40)
+theme.menu_width = dpi(350)
+beautiful.init(theme)
 
 -- This is used later as the default terminal and editor to run.
 terminal = "gnome-terminal"
