@@ -2,8 +2,8 @@
 My config files
 
 * Awesome
-1. use `~gnome-terminal~` as default terminal
-2. use `~rofi~` to launch programs
+1. use ~gnome-terminal~ as default terminal
+2. use ~rofi~ to launch programs
 3. more big font size
 
 * Rofi
@@ -11,8 +11,8 @@ My config files
 
 * Bash
 1. some alias
-2. set `~EDITOR~` to `~vim~`
-3. source setting for `~fzf~`
+2. set ~EDITOR~ to ~vim~
+3. source setting for ~fzf~
 4. setup evn for TexLive
 
 * Xresources
