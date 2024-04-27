@@ -1,6 +1,6 @@
 configuration {
 /*	modes: "window,drun,run,ssh";*/
-/*	font: "mono 20";*/
+  	font: "mono 20";
 /*	location: 0;*/
 /*	yoffset: 0;*/
 /*	xoffset: 0;*/
