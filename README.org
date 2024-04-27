@@ -1,19 +1,20 @@
-# configs
+* configs
 My config files
 
-# Awesome
+* Awesome
 1. use `gnome-terminal` as default terminal
 2. use `rofi` to launch programs
 3. more big font size
 
-# Rofi
+* Rofi
 1. mor big font size
 
-# Bash
+* Bash
 1. some alias
 2. set `EDITOR` to `vim`
-3. setup evn for TexLive
+3. source setting for `fzf`
+4. setup evn for TexLive
 
-# Xresources
+* Xresources
 1. change dpi for High-dpi screen
 
