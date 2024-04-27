@@ -18,3 +18,8 @@ My config files
 * Xresources
 1. change dpi for High-dpi screen
 
+
+# Local Variables:
+# eval: (org-num-mode 1)
+# org-num-max-level: 1
+# End:
