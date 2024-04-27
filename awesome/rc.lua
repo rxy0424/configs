@@ -47,6 +47,12 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
+beautiful.font = "sans 20"
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
+beautiful.menu_height = dpi(40)
+beautiful.menu_width = dpi(350)
+
 -- This is used later as the default terminal and editor to run.
 terminal = "xterm"
 editor = os.getenv("EDITOR") or "nano"
