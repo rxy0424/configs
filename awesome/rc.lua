@@ -54,7 +54,7 @@ beautiful.menu_height = dpi(40)
 beautiful.menu_width = dpi(350)
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
+terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
