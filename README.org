@@ -5,6 +5,7 @@ My config files
 1. use ~gnome-terminal~ as default terminal
 2. use ~rofi~ to launch programs
 3. more big font size
+4. use ~xorg-xrdb~ and ~dex~ for XDG Autostart
 
 * Rofi
 1. mor big font size
