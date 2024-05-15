@@ -1,4 +1,4 @@
-Xft.dpi: 192 # 120 work well for rxy
+Xft.dpi: 144 # 120 work well for rxy
 
 ! These might also be useful depending on your monitor and personal preference:
 Xft.autohint: 0
