@@ -28,13 +28,14 @@ polybar-msg cmd quit
 #    POLYBAR_MONITOR="" polybar primary &
 #fi
 
-if [ ! -f "monitor.txt" ]; then
+if [ ! -f "${HOME}/.config/polybar/monitor.txt" ]; then
+  echo "default"
   polybar primary &
 else
   while IFS=' ' read -r name dpi barname; do
     POLYBAR_MONITOR="$name" POLYBAR_DPI="$dpi" polybar "$barname" &
     echo "$name" "$dpi" "$barname"
-  done < "monitor.txt"
+  done < "${HOME}/.config/polybar/monitor.txt"
 fi
 
 echo "Bars launched..."
