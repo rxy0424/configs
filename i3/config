@@ -198,3 +198,4 @@ bindsym $mod+z mode "resize"
 #	font pango:monospace 18
 #        status_command i3status
 #}
+default_border pixel
