@@ -10,7 +10,31 @@ polybar-msg cmd quit
 #echo "---" | tee -a /tmp/polybar1.log /tmp/polybar2.log
 #polybar bar1 2>&1 | tee -a /tmp/polybar1.log & disown
 #polybar bar2 2>&1 | tee -a /tmp/polybar2.log & disown
-echo "---" | tee -a /tmp/polybar1.log
-polybar example 2>&1 | tee -a /tmp/polybar1.log & disown
+# echo "---" | tee -a /tmp/polybar1.log
+# polybar example 2>&1 | tee -a /tmp/polybar1.log & disown
+
+#if type "xrandr" > /dev/null; then
+#    for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+#        if [ $m == 'DP-2' ]
+#        then
+#            POLYBAR_MONITOR=$m POLYBAR_DPI=96 polybar primary &
+#        elif [ $m == 'HDMI-1' ]
+#        then
+#            POLYBAR_MONITOR=$m POLYBAR_DPI=96 polybar side &
+#        else
+#            POLYBAR_MONITOR=$m polybar primary&
+#        fi
+#    done #else
+#    POLYBAR_MONITOR="" polybar primary &
+#fi
+
+if [ ! -f "monitor.txt" ]; then
+  polybar primary &
+else
+  while IFS=' ' read -r name dpi barname; do
+    POLYBAR_MONITOR="$name" POLYBAR_DPI="$dpi" polybar "$barname" &
+    echo "$name" "$dpi" "$barname"
+  done < "monitor.txt"
+fi
 
 echo "Bars launched..."
