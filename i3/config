@@ -123,7 +123,7 @@ bindsym $mod+d exec rofi -show drun
 bindsym $mod+r exec rofi -show run
 bindsym $mod+Shift+w exec rofi -show window
 bindsym $mod+u exec wmfocus
-bindsym $mod+Shift+p exec "flameshot gui"
+# bindsym $mod+Shift+p exec "flameshot gui"
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -191,10 +191,37 @@ mode "resize" {
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+        bindsym Ctrl+bracketleft mode "default"
 }
 
 bindsym $mod+z mode "resize"
+
+mode "trans" {
+        bindsym j exec "picom-trans -c -10"
+        bindsym k exec "picom-trans -c +10"
+        bindsym n exec "picom-trans -c 100"
+        bindsym d exec "picom-trans -c -d"
+
+        # back to normal
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Ctrl+bracketleft mode "default"
+}
+
+bindsym $mod+Shift+t mode "trans"
+
+mode "border" {
+        bindsym n border normal
+        bindsym p border pixel
+        bindsym x border none
+
+        # back to normal
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym Ctrl+bracketleft mode "default"
+}
+
+bindsym $mod+Shift+b mode "border"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -203,11 +230,13 @@ bindsym $mod+z mode "resize"
 #	font pango:monospace 18
 #        status_command i3status
 #}
-default_border pixel
+default_border none
 for_window [class="Google-chrome"] title_format "%class"
 for_window [class="pavucontrol"] floating enable
 for_window [class="Blueberry.py"] floating enable
 for_window [class="Nm-connection-editor"] floating enable
+
+# bindsym $mod+Shift+b border toggle
 
 gaps inner 8
 #:w
