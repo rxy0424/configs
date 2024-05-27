@@ -9,25 +9,21 @@ DOOM_DIR="$HOME/.doom.d"
 RIME_DIR="$HOME/.local/share/fcitx5/rime"
 HOME_DIR="$HOME"
 
-# Directories to be linked and their target directories
-declare -A DIRS=(
+# Directories and files to be linked and their target directories
+declare -A ITEMS=(
     ["i3"]="$CONFIG_DIR/i3"
     ["polybar"]="$CONFIG_DIR/polybar"
     ["rofi"]="$CONFIG_DIR/rofi"
     ["doom_emacs"]="$DOOM_DIR"
     ["rime"]="$RIME_DIR"
-)
-
-# Files to be linked to the HOME directory
-declare -A FILES=(
     [".Xresources"]="$HOME_DIR/.Xresources"
     [".bashrc"]="$HOME_DIR/.bashrc"
     [".tmux.conf"]="$HOME_DIR/.tmux.conf"
     [".xprofile"]="$HOME_DIR/.xprofile"
 )
 
-# Function to create symlinks
-create_symlinks() {
+# Function to create symlinks for files in a directory
+create_symlinks_in_directory() {
     local src_dir=$1
     local dest_dir=$2
 
@@ -42,96 +38,68 @@ create_symlinks() {
     done
 }
 
+# Function to create symlinks for a single file
+create_symlink_for_file() {
+    local src=$1
+    local dest=$2
+
+    # Create target directory if it does not exist
+    if [ ! -d "$(dirname "$dest")" ]; then
+        mkdir -p "$(dirname "$dest")"
+    fi
+
+    # Create symlink
+    ln -sf "$src" "$dest"
+}
+
 # Prompt user to select directories and files to link
 echo "Please select the directories and files to create symlinks for (enter corresponding numbers, separated by spaces):"
 i=1
-for dir in "${!DIRS[@]}"; do
-    echo "$i) $dir"
-    ((i++))
-done
-for file in "${!FILES[@]}"; do
-    echo "$i) $file"
+ITEM_KEYS=()
+for item in "${!ITEMS[@]}"; do
+    echo "$i) $item"
+    ITEM_KEYS+=("$item")
     ((i++))
 done
 read -p "Selection: " choices
 
-# Prompt user to modify target directories
-echo "Do you want to modify the target directories? (y/n)"
+# Convert user selections to item names
+selected_items=()
+for choice in $choices; do
+    index=$((choice - 1))
+    if [ $index -ge 0 ] && [ $index -lt ${#ITEM_KEYS[@]} ]; then
+        selected_items+=("${ITEM_KEYS[$index]}")
+    else
+        echo "Invalid selection: $choice"
+    fi
+done
+
+# Prompt user to modify target directories for selected items
+echo "Do you want to modify the target directories for selected items? (y/n)"
 read -p "Choice: " modify_dest
 
 if [ "$modify_dest" == "y" ]; then
-    for dir in "${!DIRS[@]}"; do
-        read -p "Enter the target directory for $dir (current: ${DIRS[$dir]}): " new_dest
+    for item in "${selected_items[@]}"; do
+        read -p "Enter the target directory for $item (current: ${ITEMS[$item]}): " new_dest
         if [ ! -z "$new_dest" ]; then
-            DIRS[$dir]=$new_dest
-        fi
-    done
-    for file in "${!FILES[@]}"; do
-        read -p "Enter the target directory for $file (current: ${FILES[$file]}): " new_dest
-        if [ ! -z "$new_dest" ]; then
-            FILES[$file]=$new_dest
+            ITEMS[$item]=$new_dest
         fi
     done
 fi
 
-# Convert user selections to directory and file names
-selected_dirs=()
-selected_files=()
-for choice in $choices; do
-    case $choice in
-        1)
-            selected_dirs+=("i3")
-            ;;
-        2)
-            selected_dirs+=("polybar")
-            ;;
-        3)
-            selected_dirs+=("rofi")
-            ;;
-        4)
-            selected_dirs+=("doom_emacs")
-            ;;
-        5)
-            selected_dirs+=("rime")
-            ;;
-        6)
-            selected_files+=(".Xresources")
-            ;;
-        7)
-            selected_files+=(".bashrc")
-            ;;
-        8)
-            selected_files+=(".tmux.conf")
-            ;;
-        9)
-            selected_files+=(".xprofile")
-            ;;
-        *)
-            echo "Invalid selection: $choice"
-            ;;
-    esac
-done
+# Create symlinks for the selected items
+for item in "${selected_items[@]}"; do
+    src="$CURRENT_DIR/$item"
+    dest="${ITEMS[$item]}"
 
-# Create symlinks for the selected directories
-for dir in "${selected_dirs[@]}"; do
-    src_dir="$CURRENT_DIR/$dir"
-    dest_dir="${DIRS[$dir]}"
-
-    if [ -d "$src_dir" ]; then
-        create_symlinks "$src_dir" "$dest_dir"
-        echo "Created symlinks for $dir in $dest_dir"
+    if [ -d "$src" ]; then
+        create_symlinks_in_directory "$src" "$dest"
+        echo "Created symlinks for files in directory $item in $dest"
+    elif [ -f "$src" ]; then
+        create_symlink_for_file "$src" "$dest"
+        echo "Created symlink for file $item in $dest"
     else
-        echo "Directory $src_dir does not exist, skipping..."
-    fi
-done
-
-# Create symlinks for the selected files
-for file in "${selected_files[@]}"; do
-    if [ -f "$CURRENT_DIR/$file" ]; then
-        ln -sf "$CURRENT_DIR/$file" "${FILES[$file]}"
-        echo "Created symlink for $file in ${FILES[$file]}"
-    else
-        echo "File $CURRENT_DIR/$file does not exist, skipping..."
+        echo "Source $src does not exist, skipping..."
     fi
 done
 
