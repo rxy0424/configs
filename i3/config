@@ -27,6 +27,7 @@ exec --no-startup-id udiskie --tray
 exec --no-startup-id v2raya --lite
 exec --no-startup-id flameshot
 exec --no-startup-id feh --bg-fill ~/Pictures/002.png
+#exec --no-startup-id picom
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -123,7 +124,7 @@ bindsym $mod+d exec rofi -show drun
 bindsym $mod+r exec rofi -show run
 bindsym $mod+Shift+w exec rofi -show window
 bindsym $mod+u exec wmfocus
-# bindsym $mod+Shift+p exec "flameshot gui"
+bindsym $mod+Shift+p exec "flameshot gui"
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -232,9 +233,11 @@ bindsym $mod+Shift+b mode "border"
 #}
 default_border none
 for_window [class="Google-chrome"] title_format "%class"
-for_window [class="pavucontrol"] floating enable
-for_window [class="Blueberry.py"] floating enable
-for_window [class="Nm-connection-editor"] floating enable
+for_window [class="pavucontrol"] floating enable, border normal
+for_window [class="Blueberry.py"] floating enable, border normal
+for_window [class="Nm-connection-editor"] floating enable, border normal
+for_window [class="fcitx5-config-qt"] floating enable, border normal
+for_window [class="flameshot"] floating enable, border normal
 
 # bindsym $mod+Shift+b border toggle
 
