@@ -200,8 +200,8 @@ bindsym $mod+z mode "resize"
 mode "trans" {
         bindsym j exec "picom-trans -c -10"
         bindsym k exec "picom-trans -c +10"
-        bindsym n exec "picom-trans -c 100"
-        bindsym d exec "picom-trans -c -d"
+        bindsym n exec "picom-trans -c 100", mode "default"
+        bindsym d exec "picom-trans -c -d", mode "default"
 
         # back to normal
         bindsym Return mode "default"
@@ -212,9 +212,9 @@ mode "trans" {
 bindsym $mod+Shift+t mode "trans"
 
 mode "border" {
-        bindsym n border normal
-        bindsym p border pixel
-        bindsym x border none
+        bindsym n border normal, mode "default"
+        bindsym p border pixel, mode "default"
+        bindsym x border none, mode "default"
 
         # back to normal
         bindsym Return mode "default"
@@ -238,6 +238,9 @@ for_window [class="Blueberry.py"] floating enable, border normal
 for_window [class="Nm-connection-editor"] floating enable, border normal
 for_window [class="fcitx5-config-qt"] floating enable, border normal
 for_window [class="flameshot"] floating enable, border normal
+for_window [class="xfreerdp"] floating enable, border normal
+for_window [class="Anki"] floating enable, border normal
+for_window [class="mpv"] floating enable
 
 # bindsym $mod+Shift+b border toggle
 
