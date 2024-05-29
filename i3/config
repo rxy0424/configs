@@ -239,7 +239,7 @@ for_window [class="xfreerdp"] floating enable, border normal
 for_window [class="Anki"] floating enable, border normal
 for_window [class="Thunar"] floating enable, border normal
 for_window [class="mpv"] floating enable
-for_window [class="FloatingTerminal"] floating enable
+for_window [class="FloatingTerminal"] floating enable, resize set 1520 px 1080 px
 
 # add run
 bindsym $mod+d exec rofi -show drun
