@@ -240,7 +240,7 @@ for_window [class="xfreerdp"] floating enable, border normal
 for_window [class="Anki"] floating enable, border normal
 for_window [class="Thunar"] floating enable, border normal
 for_window [class="mpv"] floating enable
-
+for_window [class="FloatingTerminal"] floating enable
 
 # add run
 bindsym $mod+d exec rofi -show drun
@@ -248,6 +248,7 @@ bindsym $mod+r exec rofi -show run
 bindsym $mod+Shift+w exec rofi -show window
 bindsym $mod+u exec wmfocus
 bindsym $mod+Shift+p exec "flameshot gui"
+bindsym $mod+Shift+Return exec --no-startup-id i3-sensible-terminal --class=FloatingTerminal
 
 #workspace $ws5 output HDMI-2
 workspace $ws5 output HDMI-2
