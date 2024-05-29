@@ -216,7 +216,6 @@ exec --no-startup-id udiskie --tray
 exec --no-startup-id v2raya --lite
 exec --no-startup-id flameshot
 exec --no-startup-id feh --bg-fill ~/Pictures/002.png
-#exec --no-startup-id picom
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
